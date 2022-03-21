@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
-import java.security.NoSuchAlgorithmException;
 
 @RestController
 @RequestMapping(path = "/usuarios")
@@ -36,7 +35,7 @@ public class UsuarioResource {
     private final UsuarioAuthentecateUsecase usuarioAuthentecateUsecase;
 
     @PostMapping
-    public ResponseEntity<ApiResponseDto<UsuarioDto>> create(@RequestBody UsuarioDto usuarioDto) throws NoSuchAlgorithmException {
+    public ResponseEntity<ApiResponseDto<UsuarioDto>> create(@RequestBody UsuarioDto usuarioDto) {
         log.info("iniciando chamada no recurso POST /usuarios");
         var usuario = this.usuarioCreateUsecase.criarNovoUsuario(usuarioDto);
         var response = ResponseEntity.created(URI.create("")).body(ApiResponseDto.of(HttpStatus.CREATED.name(), usuario, ""));

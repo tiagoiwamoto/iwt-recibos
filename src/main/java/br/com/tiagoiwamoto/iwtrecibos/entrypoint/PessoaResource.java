@@ -13,6 +13,7 @@ import br.com.tiagoiwamoto.iwtrecibos.core.usecase.pessoa.PessoaCreateUsecase;
 import br.com.tiagoiwamoto.iwtrecibos.core.usecase.pessoa.PessoaRecoveryUsecase;
 import br.com.tiagoiwamoto.iwtrecibos.core.usecase.pessoa.PessoaUpdateUsecase;
 import br.com.tiagoiwamoto.iwtrecibos.core.usecase.usuario.UsuarioCreateUsecase;
+import br.com.tiagoiwamoto.iwtrecibos.core.util.Constantes;
 import br.com.tiagoiwamoto.iwtrecibos.entrypoint.dto.PessoaDto;
 import br.com.tiagoiwamoto.iwtrecibos.entrypoint.dto.UsuarioDto;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +43,7 @@ public class PessoaResource {
     private final PessoaUpdateUsecase pessoaUpdateUsecase;
 
     @PostMapping
-    public ResponseEntity<ApiResponseDto<PessoaDto>> create(@RequestBody PessoaDto pessoaDto, @RequestHeader(name = "x-user-id") String uuid) {
+    public ResponseEntity<ApiResponseDto<PessoaDto>> create(@RequestBody PessoaDto pessoaDto, @RequestHeader(name = Constantes.XUSERID) String uuid) {
         log.info("iniciando chamada no recurso POST /pessoas");
         var pessoa = this.pessoaCreateUsecase.criarNovaPessoa(pessoaDto, uuid);
         var response = ResponseEntity.created(URI.create("")).body(ApiResponseDto.of(HttpStatus.CREATED.name(), pessoa, ""));
@@ -51,7 +52,7 @@ public class PessoaResource {
     }
 
     @PutMapping
-    public ResponseEntity<ApiResponseDto<PessoaDto>> update(@RequestBody PessoaDto pessoaDto, @RequestHeader(name = "x-user-id") String uuid) {
+    public ResponseEntity<ApiResponseDto<PessoaDto>> update(@RequestBody PessoaDto pessoaDto, @RequestHeader(name = Constantes.XUSERID) String uuid) {
         log.info("iniciando chamada no recurso PUT /pessoas");
         var pessoa = this.pessoaUpdateUsecase.atualizarPessoa(pessoaDto, uuid);
         var response = ResponseEntity.created(URI.create("")).body(ApiResponseDto.of(HttpStatus.OK.name(), pessoa, ""));
@@ -60,7 +61,7 @@ public class PessoaResource {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponseDto<List<PessoaDto>>> recoveryByUsuario(@RequestHeader(name = "x-user-id") String uuid) {
+    public ResponseEntity<ApiResponseDto<List<PessoaDto>>> recoveryByUsuario(@RequestHeader(name = Constantes.XUSERID) String uuid) {
         log.info("iniciando chamada no recurso GET /pessoas");
         var pessoas = this.pessoaRecoveryUsecase.recuperarPessoasDeUmUsuario(uuid);
         var response = ResponseEntity.ok().body(ApiResponseDto.of(HttpStatus.OK.name(), pessoas, ""));

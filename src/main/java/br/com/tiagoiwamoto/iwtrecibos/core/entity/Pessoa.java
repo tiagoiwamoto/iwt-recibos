@@ -34,6 +34,7 @@ public class Pessoa {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nome;
+    private String email;
     private LocalDate dataNascimento;
     private String cpfCnpj;
     private String cep;

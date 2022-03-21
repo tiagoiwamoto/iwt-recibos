@@ -12,6 +12,7 @@ import br.com.tiagoiwamoto.iwtrecibos.config.rest.ApiResponseDto;
 import br.com.tiagoiwamoto.iwtrecibos.core.usecase.recibo.ReciboCreateUsecase;
 import br.com.tiagoiwamoto.iwtrecibos.core.usecase.recibo.ReciboRecoveryUsecase;
 import br.com.tiagoiwamoto.iwtrecibos.core.usecase.usuario.UsuarioCreateUsecase;
+import br.com.tiagoiwamoto.iwtrecibos.core.util.Constantes;
 import br.com.tiagoiwamoto.iwtrecibos.entrypoint.dto.ReciboDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +38,7 @@ public class ReciboResource {
     private final ReciboRecoveryUsecase reciboRecoveryUsecase;
 
     @PostMapping
-    public ResponseEntity<ApiResponseDto<ReciboDto>> create(@RequestBody ReciboDto reciboDto, @RequestHeader(name = "x-user-id") String uuid){
+    public ResponseEntity<ApiResponseDto<ReciboDto>> create(@RequestBody ReciboDto reciboDto, @RequestHeader(name = Constantes.XUSERID) String uuid){
         log.info("iniciando chamada no recurso POST /recibos");
         var recibo = this.reciboCreateUsecase.criarNovoRecibo(reciboDto, uuid);
         var response = ResponseEntity.created(URI.create("")).body(ApiResponseDto.of(HttpStatus.CREATED.name(), recibo, ""));
@@ -46,7 +47,7 @@ public class ReciboResource {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponseDto<List<ReciboDto>>> recovery(@RequestHeader(name = "x-user-id") String uuid){
+    public ResponseEntity<ApiResponseDto<List<ReciboDto>>> recovery(@RequestHeader(name = Constantes.XUSERID) String uuid){
         log.info("iniciando chamada no recurso GET /recibos");
         var recibos = this.reciboRecoveryUsecase.recuperarRecibosdeUmUsuario(uuid);
         var response = ResponseEntity.created(URI.create("")).body(ApiResponseDto.of(HttpStatus.CREATED.name(), recibos, ""));

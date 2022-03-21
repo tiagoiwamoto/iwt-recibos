@@ -8,6 +8,7 @@ package br.com.tiagoiwamoto.iwtrecibos.config.rest;
  * 30/09/2021 | 07:28
  */
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponseDto<T> extends ResponseDto implements Serializable {
 
   private static final long serialVersionUID = 7059932410249377262L;

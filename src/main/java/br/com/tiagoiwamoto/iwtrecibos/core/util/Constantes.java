@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Constantes {
 
+    public static final String XUSERID = "x-user-id";
+
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static class SystemErrors{
         public static final String DATABASE_ACCESS_ERROR = "falha ao se comunicar com a base de dados, {}";

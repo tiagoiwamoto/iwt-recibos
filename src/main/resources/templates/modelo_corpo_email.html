@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>iwt-recibos</title>
+</head>
+<body>
+<h1>Seu recibo chegou !</h1>
+
+<p>Em anexo você confere o recibo gerado pela plataforma iwt-recibos</p>
+<p>Este documento foi gerado por: <small th:text="${recibo.getAssinante().getNome()}"></small></p>
+<p>E solicitou o envio para <small th:text="${recibo.getPagador().getNome()}"></small>.</p>
+<p>Se não for você não se preocupe pois este é apenas um documento para conferencia.</p>
+<br />
+<br />
+<br />
+<small>iwt-recibos</small>
+</body>
+</html>
